@@ -1,6 +1,7 @@
 1.14.3 - Unreleased
 -------------------
 
+- feat: Add :class:`.DepartmentLedger`, which keeps a department parent-child table and a transaction detail table together, and derives a transaction detail ``Table`` with current root-department attribution and a per-level cumulative rollup ``Table``. Re-parenting a department moves its old transactions to the new path. Both tables support atomic batch insert, update and delete corrections; an invalid batch (a duplicate, an unknown target, a missing parent or a cycle) applies nothing. Transactions whose department is missing are retained and are included automatically once the department is inserted. Amounts remain exact ``Decimal`` values and a null amount is distinguished from a total of zero. Corrections update per-department aggregates incrementally, without rescanning transactions.
 - feat: :class:`.Median`, :class:`.Percentiles`, :class:`.Quartiles`, :class:`.Quintiles`, :class:`.Deciles` and :class:`.IQR` can be applied to :class:`.TimeDelta` columns, like :class:`.Sum` and :class:`.Mean`.
 - fix: :meth:`.Table.distinct` now deduplicates rows when ``key`` is a sequence of column names.
 - fix: :class:`.Rank` ranks null values last when ``reverse=True``.

@@ -26,6 +26,40 @@ class CastError(Exception):  # pragma: no cover
     pass
 
 
+class DepartmentLedgerError(ValueError):  # pragma: no cover
+    """
+    A department ledger or one of its corrections is invalid.
+
+    This is the base class for errors raised by :class:`.DepartmentLedger`.
+    """
+    pass
+
+
+class CorrectionError(DepartmentLedgerError):  # pragma: no cover
+    """
+    A correction is malformed, duplicates an existing row or targets a row that
+    does not exist.
+
+    When a batch of corrections raises this error, none of the batch is
+    applied.
+    """
+    pass
+
+
+class IllegalDepartmentHierarchyError(DepartmentLedgerError):  # pragma: no cover
+    """
+    The department parent-child relationships are not a valid forest.
+
+    This happens when a department references a parent that does not exist,
+    when a department is its own ancestor (a cycle) or when deleting a
+    department would leave its children without their parent.
+
+    When a batch of corrections raises this error, none of the batch is
+    applied.
+    """
+    pass
+
+
 class FieldSizeLimitError(Exception):  # pragma: no cover
     """
     A field in a CSV file exceeds the maximum length.

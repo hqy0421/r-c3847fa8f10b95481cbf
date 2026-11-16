@@ -7,6 +7,7 @@ API
 
     api/table
     api/tableset
+    api/ledger
     api/columns_and_rows
     api/data_types
     api/type_tester
